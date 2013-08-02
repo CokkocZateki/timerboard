@@ -82,10 +82,10 @@
 				if (new Date({{ timer.to_unix_time() * 1000 }}) < new Date()) {
 					var style="<font color='red'>"
 				}
-				document.getElementById("remaining.{{ timer.id }}").innerHTML = style+ts.hours+"H "+ts.minutes+"M "+ts.seconds+"S </font>";
+				document.getElementById("remaining.{{ timer.id }}").innerHTML = style+ts.days+"D "+ts.hours+"H "+ts.minutes+"M "+ts.seconds+"S </font>";
 			},
-			new Date({{ timer.to_unix_time() * 1000 }} - localOffset),
-			countdown.HOURS|countdown.MINUTES|countdown.SECONDS);
+			new Date({{ timer.to_unix_time() * 1000 }}),
+			countdown.DAYS|countdown.HOURS|countdown.MINUTES|countdown.SECONDS);
 		{% endfor %}
 
 		// Date/Time picker

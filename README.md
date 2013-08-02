@@ -1,0 +1,75 @@
+# Timerboard
+
+A simple EVE online timer board.
+
+## Requirements
+
+Please install the following with pip:
+
+* Flask
+* Flask-Sqlalchemy
+
+## Configuration
+
+Configuration is done via a config.json file in the web application's root folder, here's a sample one:
+
+```
+{
+        "username" : "adminuser",
+        "password" : "adminpassword",
+        "database":
+        {
+                "username": "dbuser",
+                "password": "dbpassword",
+                "host": "mydbhost.mysite",
+                "database": "timerboard"
+        }
+}
+```
+
+## Installation
+
+### Debug Mode
+
+```
+python run.py
+```
+
+The application can be run in debug mode using the run.py script, this allows you to check that everything is working and view errors on the command line, it will also switch the application into debug mode, showing errors within the web browser when they occur. This is not the recommended mode of operation.
+
+### Deploying under uwsgi
+
+To deploy the application as a wsgi container you can use the following uwsgi settings. These may be adapted for other wsgi-capable application servers.
+
+```
+[uwsgi]
+socket = /var/run/timerboard.sock
+chmod-socket = 666
+processes = 4
+master = true
+chdir = /opt/timerboard
+pp = /opt/timerboard
+module = main
+callable = app
+```
+
+This can be served using an nginx site configuration like the following:
+
+```
+server {
+        server_name timers.yourdomain.net;
+
+        root /var/www/;
+
+        location / {
+                include         uwsgi_params;
+                uwsgi_pass      unix:/var/run/timerboard.sock;
+        }
+}
+```
+
+## Usage
+
+Normal users can go to [http://yourhost/](http://yourhost/) to see the timerboard.
+
+Administrators can go to [http://yourhost/admin](http://yourhost/admin) to create or delete timers using the credentials supplied in the configuration file.

@@ -1,9 +1,12 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
-import time
+import time, json
+
+with open('config.json', 'r') as fh:
+	config = json.loads(fh.read())["database"]
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite3://'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://%s:%s@%s/%s' % (config["username"], config["password"], config["host"], config["database"])
 db = SQLAlchemy(app)
 db.create_all()
 
@@ -29,4 +32,4 @@ class Timer(db.Model):
 		return '<Timer %r>' % self.time
 
 	def to_unix_time(self):
-		return time.mktime(self.time.timetuple())
+		return int(time.mktime(self.time.timetuple()) +3600 )
