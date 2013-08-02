@@ -23,7 +23,7 @@
 		</tr>
 		{% for timer in timers %}
 		<tr>
-			<td>{{ timer.system }}</td>
+			<td><a href="http://evemaps.dotlan.net/search?q={{ timer.system }}">{{ timer.system }}</a></td>
 			<td>{{ timer.planet }}</td>
 			<td>{{ timer.moon }}</td>
 			<td>{{ timer.owner }}</td>
