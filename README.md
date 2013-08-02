@@ -33,16 +33,16 @@ Configuration is done via a config.json file in the web application's root folde
 
 A schema.sql may be provided as a fallback, but the main way to create the database is as follows:
 
-1. Create the database and user
+#### Create the database and user
 As the root MySQL user:
 ```
 CREATE DATABASE yourdatabasename;
 GRANT ALL PRIVILEGES ON yourdatabasename.* TO 'youruser'@'host';
 FLUSH PRIVILEGES;
 ```
-2. Put credentials in the config.json
+#### Put credentials in the config.json
 
-3. Create tables
+#### Create tables
 In the timerboard folder:
 ```
 python
