@@ -1,0 +1,12 @@
+{
+	"timerboard":{
+		"title": "MYALLIANCE timerboard",
+		"database":
+		{
+			"username": "timerboard",
+			"password": "",
+			"host": "localhost",
+			"database": "timerboard"
+		}
+	},
+}
