@@ -3,7 +3,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 import time, json
 
 with open('config.json', 'r') as fh:
-	config = json.loads(fh.read())["database"]
+	config = json.loads(fh.read())["timerboard"]["database"]
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://%s:%s@%s/%s' % (config["username"], config["password"], config["host"], config["database"])
