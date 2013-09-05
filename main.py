@@ -2,20 +2,23 @@ from backend import Timer, db
 from flask import Flask, render_template, redirect, request, abort, url_for
 import datetime
 import json, re
-from auth import *
+from authtools import *
 
 app = Flask(__name__)
+
+with open('config.json', 'r') as fh:
+	config = json.loads(fh.read())["timerboard"]
 
 @app.route('/admin')
 @requires_auth
 def admin():
 	timers = Timer.query.order_by(Timer.time).all()
-	return render_template('timers.html', timers=timers)
+	return render_template('timers.html', timers=timers, title=config["title"])
 
 @app.route('/')
 def timerboard():
 	timers = Timer.query.order_by(Timer.time).all()
-	return render_template('timers_guest.html', timers=timers)
+	return render_template('timers_guest.html', timers=timers, title=config["title"])
 
 systemlist = []
 with open("systems.json", "r") as systemsfile:

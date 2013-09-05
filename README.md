@@ -15,15 +15,16 @@ Configuration is done via a config.json file in the web application's root folde
 
 ```
 {
-        "username" : "adminuser",
-        "password" : "adminpassword",
-        "database":
-        {
-                "username": "dbuser",
-                "password": "dbpassword",
-                "host": "mydbhost.mysite",
-                "database": "timerboard"
-        }
+	"timerboard":{
+		"title": "MYALLIANCE timerboard",
+		"database":
+		{
+			"username": "timerboard",
+			"password": "",
+			"host": "localhost",
+			"database": "timerboard"
+		}
+	},
 }
 ```
 
@@ -94,4 +95,4 @@ server {
 
 Normal users can go to [http://yourhost/](http://yourhost/) to see the timerboard.
 
-Administrators can go to [http://yourhost/admin](http://yourhost/admin) to create or delete timers using the credentials supplied in the configuration file.
+Administrators can go to [http://yourhost/admin](http://yourhost/admin) to create or delete timers using credentials from the linked pizza-auth system.
