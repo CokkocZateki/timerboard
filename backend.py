@@ -32,4 +32,4 @@ class Timer(db.Model):
 		return '<Timer %r>' % self.time
 
 	def to_unix_time(self):
-		return int(time.mktime(self.time.timetuple()) +3600 )
+		return int(time.mktime(self.time.timetuple()))

@@ -52,7 +52,7 @@ def add_timer():
 					kwargs[key] = int(kwargs[key].groups()[0])
 				else:
 					del kwargs[key]
-			results[4] = datetime.datetime.utcnow() + datetime.timedelta(**kwargs)
+			results[4] = datetime.datetime.now() + datetime.timedelta(**kwargs)
 		t = Timer(*results)
 		db.session.add(t)
 		db.session.commit()
