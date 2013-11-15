@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/hot-sneaks/jquery-ui.css" />
 		<link rel="stylesheet" type="text/css" href="static/jquery-ui-timepicker-addon.css" />
 		<script src="static/jquery-ui-timepicker-addon.js"></script>
+		<script src="static/bootstrap.min.js"></script>
 		<title>{% block title %}{% endblock %}</title>
 		{% endblock %}
 	</head>
@@ -18,6 +19,15 @@
 			{% block body %}
 			{% endblock %}
 		</div>
+		<hr />
+		{% set dtf = ["Department of Treasury and Finance", "Donations To Farmers", "Dynamic Track Following", "Digital Tape Format", "Dead Tree Format", "Days To Fix", "Define The File", "Directed Transfer Function", "Double the Fist", "Down to Fuck", "Down to Fight", "Down to Fish", "Drink 'Til Fucked", "Don't Talk Fatass", "Dear The Father", "Dreary Twilight Farts", "Damn Those Fatties", "Dogs Talking Forcefully", "Driving The Frontloader", "Don't Touch Frogs", "Dung Throwing F***ot", "Deer Thicket Fencing", "Download Terminator Four", "Dreads That Fly", "Dave, Throw Failure", "Dicks Throbbing Ferociously", "DEFEND THE FREEDOM", "Duct Tape Fireball", "Damn That Frenchman", "Dubious Trolling F***ots"]|random %}
+		<footer>
+			<div class="container">
+				<p class=".small text-center text-muted">This site is a deployment of <a href="https://bitbucket.org/Sylnai/timerboard">timerboard</a>, which is available under the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+			</div>
+		</footer>
 	</body>
-
+	<script>
+		$('#dtf').tooltip()
+	</script>
 </html>

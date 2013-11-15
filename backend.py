@@ -33,3 +33,13 @@ class Timer(db.Model):
 
 	def to_unix_time(self):
 		return int(time.mktime(self.time.timetuple()))
+
+	def to_json(self):
+		return json.dumps({
+			"system": self.system,
+			"planet": self.planet,
+			"moon": self.moon,
+			"owner": self.owner,
+			"time": self.to_unix_time(),
+			"notes": self.notes
+			})

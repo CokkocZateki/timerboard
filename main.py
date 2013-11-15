@@ -15,6 +15,12 @@ def admin():
 	timers = Timer.query.order_by(Timer.time).all()
 	return render_template('timers.html', timers=timers, title=config["title"])
 
+@app.route("/api/timers")
+def api_timers():
+	timers = Timer.query.order_by(Timer.time).all()
+	timers = map(lambda x:x.to_json(), timers)
+	return "["+",".join(timers)+"]"
+
 @app.route('/')
 def timerboard():
 	timers = Timer.query.order_by(Timer.time).all()
