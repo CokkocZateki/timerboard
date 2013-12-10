@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import request, Response
 import json
-from auth.ldaptools import LDAPTools
+from pizza_auth.ldaptools import LDAPTools
 
 with open('config.json', 'r') as fh:
 	config = json.loads(fh.read())

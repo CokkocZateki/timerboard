@@ -2,6 +2,7 @@ from backend import Timer, db
 from flask import Flask, render_template, redirect, request, abort, url_for
 import datetime
 import json, re
+import arrow
 from authtools import *
 
 app = Flask(__name__)
@@ -9,27 +10,42 @@ app = Flask(__name__)
 with open('config.json', 'r') as fh:
 	config = json.loads(fh.read())["timerboard"]
 
+regionmap = {}
+with open("system2region.csv", "r") as regionfile:
+	for line in regionfile:
+		k,v = line.split(",")
+		regionmap[k]=v.strip()
+
 @app.route('/admin')
 @requires_auth
 def admin():
 	timers = Timer.query.order_by(Timer.time).all()
 	return render_template('timers.html', timers=timers, title=config["title"])
 
+def prettyfy(timer):
+	if timer["moon"] == 0:
+		timer["moon"] = "-"
+	if timer["planet"] == "":
+		timer["planet"] == "-"
+	return timer
+
 @app.route("/api/timers")
 def api_timers():
-	timers = Timer.query.order_by(Timer.time).all()
-	timers = map(lambda x:x.to_json(), timers)
+	timers = Timer.query.order_by(Timer.time).filter(Timer.time > arrow.utcnow().replace(hours=-2).naive)
+	timers = map(lambda x:x.to_dict(), timers)
+	for timer in timers:
+		timer["region"] = regionmap[timer["system"]]
+	timers = map(prettyfy, timers)
+	timers = map(json.dumps, timers)
 	return "["+",".join(timers)+"]"
 
 @app.route('/')
 def timerboard():
-	timers = Timer.query.order_by(Timer.time).all()
-	return render_template('timers_guest.html', timers=timers, title=config["title"])
+	return render_template('timers_guest.html', title=config["title"])
 
 systemlist = []
 with open("systems.json", "r") as systemsfile:
 	systemlist = json.loads(systemsfile.read())
-
 @app.route('/systems')
 @requires_auth
 def systems():
