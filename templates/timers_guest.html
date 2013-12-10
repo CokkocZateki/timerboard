@@ -43,10 +43,6 @@
 			<td class="notes" style="word-break:break-all;">{{ notes }}</td>
 		</tr>
 	</script>
-	<script type="text/template" id="legend_template">
-			<tr id="DTF" class="{{ DTF }}"><td>DTF (Russians, Black Legion., Stainwaggon)</td></tr>
-			<tr id="N3PL" class="{{ N3PL }}"><td>N3PL (NCdot, Nulli, Pandemic Legion + other)</td></tr>
-	</script>
 	{% endraw %}
 	<script>
 		timers = {};
@@ -102,20 +98,6 @@
 		];
 		var mapindex=0;
 
-		function render_legend() {
-			var template = $("#legend_template").html();
-			var completed = Mustache.to_html(template, map[mapindex]);
-			$('#legend').empty();
-			$('#legend').append(completed);
-		}
-
-		function recolour() {
-			mapindex = (mapindex==0) ? 1 : 0;
-			$('.timer_row').remove();
-			load_timers();
-			render_legend();
-		}
-
 		function timer_to_row(i, timer) {
 			if ($("#"+timer["id"]).length == 0) {
 				timer["real_time"] = new Date(timer["time"] * 1000).toISOString();
@@ -141,7 +123,6 @@
 		}
 
 		load_timers();
-		render_legend();
 		sort("time");
 		window.setInterval(load_timers, 60000);
 	</script>
